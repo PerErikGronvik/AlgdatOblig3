@@ -90,24 +90,61 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     public boolean tom() { return antall == 0; }
 
     // Oppgave 1
-    public boolean leggInn(T verdi) { throw new UnsupportedOperationException(); }
+    public boolean leggInn(T verdi) {
+        throw new UnsupportedOperationException();
+
+        // En Node har referanser til sine barn og sin forelder. Forelder må få riktig verdi ved
+        //hver innlegging, men rotnoden skal ha null som sin forelder.
+        //Lag metoden public boolean leggInn(T verdi), som legger inn en
+        //verdi riktig sted i treet. En null-verdi er ikke lov, og skal kaste en
+        //NullPointerException. Du kan se på koden i kapittel 5.2 men må gjøre endrin-
+        //gene som trengs for at forelder-pekeren får korrekt verdi for hver node.
+    }
 
 
     // Oppgave 2
-    public int antall(T verdi){ throw new UnsupportedOperationException(); }
+    public int antall(T verdi){
+        throw new UnsupportedOperationException();
+
+        //Metodene inneholder(), antall(), og tom() er allerede kodet. Treet tillater
+        //duplikater, så en verdi kan forekomme flere ganger. Lag kode for den nye metoden
+        //antall(T verdi), som teller hvor mange ganger verdi dukker opp i treet. Om
+        //en verdi ikke er i treet (inkludert om verdien er null) skal metoden returnere 0.
+
+    }
 
     // Oppgave 3
     private Node<T> førstePostorden(Node<T> p) {
         throw new UnsupportedOperationException();
+
+        //Da metodene er private, kan vi anta at parameteren p ikke er null, da det antas
+        //at vi passer på at vi ikke sender inn null til disse metodene.
+        //Metoden førstePostorden skal returnere første node i postorden som har
+        //p som rot, og. Hvis p er den siste noden i postorden, skal metoden returnere null.
     }
 
     private Node<T> nestePostorden(Node<T> p) {
         throw new UnsupportedOperationException();
+
+        //        //Da metodene er private, kan vi anta at parameteren p ikke er null, da det antas
+        //        //at vi passer på at vi ikke sender inn null til disse metodene.
+        //        // nestePostorden skal returnere noden skom kommer etter p i
+        //        //postorden. Hvis p er den siste noden i postorden, skal metoden returnere null.
     }
 
     // Oppgave 4
     public void postOrden(Oppgave<? super T> oppgave) {
         throw new UnsupportedOperationException();
+
+        //Lag hjelpemetodene
+        //public void postorden(Oppgave <? super T> oppgave)
+        //private void postordenRekursiv(Node p, Oppgave<? super T> oppgave)
+        //som brukes til å utføre en Oppgave. Oppgaven kan for eksempel være å skrive noe
+        //til skjerm, og da vil denne metoden skrive ut treet i postorden.
+        //Den første av disse metodene skal implementeres uten bruk av rekursjon, og
+        //uten bruk av hjelpestrukturer som en stack/stabel eller queue/kø. Du skal i stedet
+        //bruke funksjonen nestePostorden fra forrige oppgave. For den rekursive metoden
+        //skal du lage et rekursivt kall som traverserer treet i postorden-rekkefølge.
     }
 
     public void postOrdenRekursiv(Oppgave<? super T> oppgave) {
@@ -119,7 +156,20 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     }
 
     // Oppgave 5
-    public boolean fjern(T verdi) { throw new UnsupportedOperationException(); }
+    public boolean fjern(T verdi) { throw new UnsupportedOperationException();
+    //Lat metoden public boolean fjern(T verdi). Du kan se på koden i kapittel
+        //5.2.8, men må gjøre endringene som trengs for at forelder-pekeren får rett verdi.
+        //Lag så metoden public int fjernAlle(T verdi). Denne skal fjerne alle
+        //forekomster av en verdi i treet, og returnere antallet som ble fjernet. Om treet ikke
+        //inneholder noen forekomster (inkludert om treet er tomt) skal metoden returnere
+        //0.
+        //Lag til slutt metoden public void nullstill(). Den skal gå gjennom treet
+        //og passe på at alle nodepekere og nodeverdier i treet blir nullet ut. Det er ikke
+        //tilstrekkelig å kun sette rot til null og antall til 0.
+        //3
+
+    }
+
     public int fjernAlle(T verdi) { throw new UnsupportedOperationException(); }
     public void nullstill() { throw new UnsupportedOperationException(); }
 }
