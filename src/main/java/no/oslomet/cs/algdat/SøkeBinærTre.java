@@ -125,8 +125,22 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
 
     // Oppgave 2
     public int antall(T verdi){
-        throw new UnsupportedOperationException();
 
+        //if (tom()||null) return 0; Ikke nødvendig
+        if (verdi == null) return 0; //null vil gi feilkode, fordi ikke alt et comparable med null.
+
+        int antallVerdi = 0;
+        Node<T> forelder = rot;
+        while (forelder != null) {
+            int cmp = comp.compare(verdi, forelder.verdi);
+            if (cmp < 0) forelder = forelder.venstre;
+            else if (cmp > 0){ forelder = forelder.høyre;}
+            else{
+                antallVerdi++;
+                forelder = forelder.høyre;
+            }
+        }
+        return antallVerdi;
         //Metodene inneholder(), antall(), og tom() er allerede kodet. Treet tillater
         //duplikater, så en verdi kan forekomme flere ganger. Lag kode for den nye metoden
         //antall(T verdi), som teller hvor mange ganger verdi dukker opp i treet. Om
@@ -147,10 +161,10 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     private Node<T> nestePostorden(Node<T> p) {
         throw new UnsupportedOperationException();
 
-        //        //Da metodene er private, kan vi anta at parameteren p ikke er null, da det antas
-        //        //at vi passer på at vi ikke sender inn null til disse metodene.
-        //        // nestePostorden skal returnere noden skom kommer etter p i
-        //        //postorden. Hvis p er den siste noden i postorden, skal metoden returnere null.
+        //Da metodene er private, kan vi anta at parameteren p ikke er null, da det antas
+        //at vi passer på at vi ikke sender inn null til disse metodene.
+        // nestePostorden skal returnere noden skom kommer etter p i
+        //postorden. Hvis p er den siste noden i postorden, skal metoden returnere null.
     }
 
     // Oppgave 4
