@@ -1,9 +1,6 @@
 package no.oslomet.cs.algdat;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class SøkeBinærTre<T>  implements Beholder<T> {
 
@@ -91,7 +88,31 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
 
     // Oppgave 1
     public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
+
+        Node<T> barn = rot, forelder = null;     // starter over roten på null. kompendie har byttet om forelder og barn.
+        int cmp = 0;                             // hjelpevariabel
+
+        while (barn != null)       // fortsetter til barn er utenfor treet
+        {
+            forelder = barn;                                 // flytter forelder nedover
+            cmp = comp.compare(verdi,barn.verdi);
+            barn = cmp < 0 ? barn.venstre : barn.høyre;     // flytter barn nedover
+            // Syntaks: test ? hvis.sant : hvis:usant
+        }
+
+        // barn er nå null
+
+        barn = new Node<>(verdi,null);                   // oppretter en ny node vet ikke hvorfor jeg må ha null her.
+
+        if (forelder == null) rot = barn;                  // p blir rotnode
+        else if (cmp < 0) forelder.venstre = barn;
+        else forelder.høyre = barn;
+
+        antall++;
+        return true;
+
+        // er mulig å gjøre med en node. Og sannsynligvis mer oversktil
 
         // En Node har referanser til sine barn og sin forelder. Forelder må få riktig verdi ved
         //hver innlegging, men rotnoden skal ha null som sin forelder.
