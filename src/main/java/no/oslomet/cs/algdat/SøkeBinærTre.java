@@ -181,10 +181,10 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     }
 
     private void postOrdenRekursiv(Node<T> p, Oppgave<? super T> oppgave) {
-
-        // metoden skal her
-        //For den rekursive metoden
-        //skal du lage et rekursivt kall som traverserer treet i postorden-rekkefølge.
+        if (p == null) return;
+        postOrdenRekursiv(p.venstre, oppgave);
+        postOrdenRekursiv(p.høyre, oppgave);
+        oppgave.utførOppgave(p.verdi);
     }
 
     // Oppgave 5
