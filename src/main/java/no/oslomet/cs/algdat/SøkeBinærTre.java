@@ -108,6 +108,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         if (forelder == null) rot = barn;                  // p blir rotnode
         else if (cmp < 0) forelder.venstre = barn;
         else forelder.høyre = barn;
+        barn.forelder = forelder;
 
         antall++;
         return true;
@@ -158,22 +159,23 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
             else if (rot.høyre != null) rot = rot.høyre;
             else break;
         }
-        if (p==rot){ //er siste noden i postorden
-        return null;
-        }
-        return rot; // Er bladnode og ikke siste node i postorden.
+        return p==rot ? null: rot;
+
             //Metoden førstePostorden skal returnere første node i postorden som har
         //p som rot, og. Hvis p er den siste noden i postorden, skal metoden returnere null.
     }
-
     private Node<T> nestePostorden(Node<T> p) {
-        throw new UnsupportedOperationException();
-        //null sendes ikke inn
+        //p er aldri null
 
+        if (p.forelder==null) return null;// Siste element
 
-        //Da metodene er private, kan vi anta at parameteren p ikke er null, da det antas
-        //at vi passer på at vi ikke sender inn null til disse metodene.
-        // nestePostorden skal returnere noden skom kommer etter p i
+        if (p.forelder.høyre == p || p.forelder.høyre == null) {// er høyre element eller er venstre element og høyre ikke finns.
+            return p.forelder;
+        }
+
+        return førstePostorden(p.forelder.høyre); // venstrebarn med høyre søsken
+
+        // nestePostorden skal returnere noden som kommer etter p i
         //postorden. Hvis p er den siste noden i postorden, skal metoden returnere null.
          //hvis p er den siste postorden.
     }
