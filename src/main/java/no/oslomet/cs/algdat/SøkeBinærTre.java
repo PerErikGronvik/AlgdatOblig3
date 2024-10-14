@@ -150,21 +150,32 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
 
     // Oppgave 3
     private Node<T> førstePostorden(Node<T> p) {
-        throw new UnsupportedOperationException();
+        //p er aldri null
 
-        //Da metodene er private, kan vi anta at parameteren p ikke er null, da det antas
-        //at vi passer på at vi ikke sender inn null til disse metodene.
-        //Metoden førstePostorden skal returnere første node i postorden som har
+        Node<T> rot = p;
+        while (true) {
+            if (rot.venstre != null) rot = rot.venstre;
+            else if (rot.høyre != null) rot = rot.høyre;
+            else break;
+        }
+        if (p==rot){ //er siste noden i postorden
+        return null;
+        }
+        return rot; // Er bladnode og ikke siste node i postorden.
+            //Metoden førstePostorden skal returnere første node i postorden som har
         //p som rot, og. Hvis p er den siste noden i postorden, skal metoden returnere null.
     }
 
     private Node<T> nestePostorden(Node<T> p) {
         throw new UnsupportedOperationException();
+        //null sendes ikke inn
+
 
         //Da metodene er private, kan vi anta at parameteren p ikke er null, da det antas
         //at vi passer på at vi ikke sender inn null til disse metodene.
         // nestePostorden skal returnere noden skom kommer etter p i
         //postorden. Hvis p er den siste noden i postorden, skal metoden returnere null.
+        return null; //hvis p er den siste postorden.
     }
 
     // Oppgave 4
