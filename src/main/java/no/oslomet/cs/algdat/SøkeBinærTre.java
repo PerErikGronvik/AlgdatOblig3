@@ -151,48 +151,29 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
 
     // Oppgave 3
     private Node<T> førstePostorden(Node<T> p) {
-        //p er aldri null
-
-        Node<T> rot = p;
-        while (true) {
-            if (rot.venstre != null) rot = rot.venstre;
-            else if (rot.høyre != null) rot = rot.høyre;
-            else break;
+        while (p.venstre != null || p.høyre != null) {
+            if (p.venstre != null) p = p.venstre;
+            else p = p.høyre;
         }
-        return p==rot ? null: rot;
-
-            //Metoden førstePostorden skal returnere første node i postorden som har
-        //p som rot, og. Hvis p er den siste noden i postorden, skal metoden returnere null.
+        return p;
     }
     private Node<T> nestePostorden(Node<T> p) {
         //p er aldri null
-
-        if (p.forelder==null) return null;// Siste element
-
-        if (p.forelder.høyre == p || p.forelder.høyre == null) {// er høyre element eller er venstre element og høyre ikke finns.
-            return p.forelder;
-        }
-
-        return førstePostorden(p.forelder.høyre); // venstrebarn med høyre søsken
-
-        // nestePostorden skal returnere noden som kommer etter p i
-        //postorden. Hvis p er den siste noden i postorden, skal metoden returnere null.
-         //hvis p er den siste postorden.
+        if (p.forelder==null) return null;// Siste element i postorden
+        // er høyre element eller, er venstre element og høyre ikke finns.
+        if (p.forelder.høyre == p || p.forelder.høyre == null) return p.forelder;
+        // venstrebarn med høyre søsken, returnerer høyre som neste postorden.
+        return førstePostorden(p.forelder.høyre);
     }
 
     // Oppgave 4
     public void postOrden(Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException();
 
-        //Lag hjelpemetodene
-        //public void postorden(Oppgave <? super T> oppgave)
-        //private void postordenRekursiv(Node p, Oppgave<? super T> oppgave)
-        //som brukes til å utføre en Oppgave. Oppgaven kan for eksempel være å skrive noe
-        //til skjerm, og da vil denne metoden skrive ut treet i postorden.
-        //Den første av disse metodene skal implementeres uten bruk av rekursjon, og
-        //uten bruk av hjelpestrukturer som en stack/stabel eller queue/kø. Du skal i stedet
-        //bruke funksjonen nestePostorden fra forrige oppgave. For den rekursive metoden
-        //skal du lage et rekursivt kall som traverserer treet i postorden-rekkefølge.
+        Node<T> tempNode = førstePostorden(rot);
+        while (tempNode != null) {
+            oppgave.utførOppgave(tempNode.verdi);
+            tempNode = nestePostorden(tempNode);
+        }
     }
 
     public void postOrdenRekursiv(Oppgave<? super T> oppgave) {
@@ -200,7 +181,10 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     }
 
     private void postOrdenRekursiv(Node<T> p, Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException();
+
+        // metoden skal her
+        //For den rekursive metoden
+        //skal du lage et rekursivt kall som traverserer treet i postorden-rekkefølge.
     }
 
     // Oppgave 5
