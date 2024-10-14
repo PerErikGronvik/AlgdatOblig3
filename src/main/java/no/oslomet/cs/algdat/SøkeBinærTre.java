@@ -175,7 +175,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         //at vi passer på at vi ikke sender inn null til disse metodene.
         // nestePostorden skal returnere noden skom kommer etter p i
         //postorden. Hvis p er den siste noden i postorden, skal metoden returnere null.
-        return null; //hvis p er den siste postorden.
+         //hvis p er den siste postorden.
     }
 
     // Oppgave 4
