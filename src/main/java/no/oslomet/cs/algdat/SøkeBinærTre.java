@@ -244,6 +244,9 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
 
     }
     public void nullstill() {
+        while (fjernAlle(førstePostorden(rot).verdi)!=0);
+
+
         //Lag til slutt metoden public void nullstill(). Den skal gå gjennom treet
         //og passe på at alle nodepekere og nodeverdier i treet blir nullet ut. Det er ikke
         //tilstrekkelig å kun sette rot til null og antall til 0.
