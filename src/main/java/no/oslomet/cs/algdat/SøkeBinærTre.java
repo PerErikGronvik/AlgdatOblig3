@@ -84,7 +84,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         return s.toString();
     }
 
-    public boolean tom() { return antall == 0; }
+    public boolean tom() { return antall == 0;  }
 
     // Oppgave 1
     public boolean leggInn(T verdi) {
@@ -100,7 +100,6 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
             barn = cmp < 0 ? barn.venstre : barn.høyre;     // flytter barn nedover
             // Syntaks: test ? hvis.sant : hvis:usant
         }
-
         // barn er nå null
 
         barn = new Node<>(verdi,null);                   // oppretter en ny node vet ikke hvorfor jeg må ha null her.
@@ -205,23 +204,24 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         if (barn.venstre == null || barn.høyre == null)  // har ikke to barn, enten er den bladnode eller har en node.
         {
             Node<T> valgtBarn = barn.venstre != null ? barn.venstre : barn.høyre;  // Velger hvilket barn
-            if (barn == rot) rot = valgtBarn; //barn er første verdien
-            else if (barn == forelder.venstre) forelder.venstre = valgtBarn;
-            else forelder.høyre = valgtBarn;
+            if (barn == rot) rot = valgtBarn; //Roten skal slettes.
+            else if (barn == forelder.venstre) forelder.venstre = valgtBarn; //peker forbi noden barn som skal slettes
+            else forelder.høyre = valgtBarn; //peker forbi noden barn som skal slettes
+            if (valgtBarn != null) valgtBarn.forelder = forelder;
+
         }
-        else  // Noden har to barn
-        {
+        else {// Noden har to barn
             Node<T> forelderNeste = barn, barnNeste = barn.høyre;   // finner neste i inorden
             while (barnNeste.venstre != null)
             { //navigerer til venstre
                 forelderNeste = barnNeste;
                 barnNeste = barnNeste.venstre;
             }
-
             barn.verdi = barnNeste.verdi;
 
             if (forelderNeste != barn) forelderNeste.venstre = barnNeste.høyre;
             else forelderNeste.høyre = barnNeste.høyre;
+            if (barnNeste.høyre != null) barnNeste.høyre.forelder = forelderNeste;
         }
 
         antall--;   // det er nå én node mindre i treet
@@ -237,14 +237,13 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         //inneholder noen forekomster (inkludert om treet er tomt) skal metoden returnere
         //0.
         int antallFjernet=0;
-
         while (!fjern(verdi)) {
             antallFjernet++;
         }
         return antallFjernet;
 
     }
-    public void nullstill() { throw new UnsupportedOperationException();
+    public void nullstill() {
         //Lag til slutt metoden public void nullstill(). Den skal gå gjennom treet
         //og passe på at alle nodepekere og nodeverdier i treet blir nullet ut. Det er ikke
         //tilstrekkelig å kun sette rot til null og antall til 0.
