@@ -90,7 +90,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     public boolean leggInn(T verdi) {
         Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
 
-        Node<T> barn = rot, forelder = null;     // starter over roten på null. kompendie har byttet om forelder og barn.
+        Node<T> barn = rot, forelder = null;     // starter over roten på null.
         int cmp = 0;                             // hjelpevariabel
 
         while (barn != null)       // fortsetter til barn er utenfor treet
@@ -98,28 +98,19 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
             forelder = barn;                                 // flytter forelder nedover
             cmp = comp.compare(verdi,barn.verdi);
             barn = cmp < 0 ? barn.venstre : barn.høyre;     // flytter barn nedover
-            // Syntaks: test ? hvis.sant : hvis:usant
+                // Syntaks: test ? hvis.sant : hvis:usant
         }
         // barn er nå null
 
-        barn = new Node<>(verdi,null);                   // oppretter en ny node vet ikke hvorfor jeg må ha null her.
+        barn = new Node<>(verdi,forelder);                   // oppretter en ny node
 
         if (forelder == null) rot = barn;                  // p blir rotnode
         else if (cmp < 0) forelder.venstre = barn;
         else forelder.høyre = barn;
-        barn.forelder = forelder;
+
 
         antall++;
         return true;
-
-        // er mulig å gjøre med en node. Og sannsynligvis mer oversktil
-
-        // En Node har referanser til sine barn og sin forelder. Forelder må få riktig verdi ved
-        //hver innlegging, men rotnoden skal ha null som sin forelder.
-        //Lag metoden public boolean leggInn(T verdi), som legger inn en
-        //verdi riktig sted i treet. En null-verdi er ikke lov, og skal kaste en
-        //NullPointerException. Du kan se på koden i kapittel 5.2 men må gjøre endrin-
-        //gene som trengs for at forelder-pekeren får korrekt verdi for hver node.
     }
 
 
@@ -141,11 +132,6 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
             }
         }
         return antallVerdi;
-        //Metodene inneholder(), antall(), og tom() er allerede kodet. Treet tillater
-        //duplikater, så en verdi kan forekomme flere ganger. Lag kode for den nye metoden
-        //antall(T verdi), som teller hvor mange ganger verdi dukker opp i treet. Om
-        //en verdi ikke er i treet (inkludert om verdien er null) skal metoden returnere 0.
-
     }
 
     // Oppgave 3
@@ -156,14 +142,14 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         }
         return p;
     }
-    private Node<T> nestePostorden(Node<T> p) {
-        //p er aldri null
-        if (p.forelder==null) return null;// Siste element i postorden
-        // er høyre element eller, er venstre element og høyre ikke finns.
-        if (p.forelder.høyre == p || p.forelder.høyre == null) return p.forelder;
-        // venstrebarn med høyre søsken, returnerer høyre som neste postorden.
-        return førstePostorden(p.forelder.høyre);
-    }
+        private Node<T> nestePostorden(Node<T> p) {
+            //p er aldri null
+            if (p.forelder==null) return null;// Siste element i postorden
+            // er høyre element eller, er venstre element og høyre ikke finns.
+            if (p.forelder.høyre == p || p.forelder.høyre == null) return p.forelder;
+            // venstrebarn med høyre søsken, returnerer høyre som neste postorden.
+            return førstePostorden(p.forelder.høyre);
+        }
 
     // Oppgave 4
     public void postOrden(Oppgave<? super T> oppgave) {
@@ -204,9 +190,14 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         if (barn.venstre == null || barn.høyre == null)  // har ikke to barn, enten er den bladnode eller har en node.
         {
             Node<T> valgtBarn = barn.venstre != null ? barn.venstre : barn.høyre;  // Velger hvilket barn
-            if (barn == rot) rot = valgtBarn; //Roten skal slettes.
-            else if (barn == forelder.venstre) forelder.venstre = valgtBarn; //peker forbi noden barn som skal slettes
-            else forelder.høyre = valgtBarn; //peker forbi noden barn som skal slettes
+            if (barn == rot) rot = valgtBarn; //Roten skal slettes hvis det er bare roten.
+            else if (barn == forelder.venstre) {
+                forelder.venstre = valgtBarn; //peker forbi noden barn som skal slettes
+                barn.forelder=null;
+            } else {
+                forelder.høyre = valgtBarn; //peker forbi noden barn som skal slettes
+                barn.forelder=null;
+            }
             if (valgtBarn != null) valgtBarn.forelder = forelder;
 
         }
