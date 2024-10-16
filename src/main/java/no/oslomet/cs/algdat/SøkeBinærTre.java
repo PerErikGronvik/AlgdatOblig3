@@ -197,7 +197,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
             int cmp = comp.compare(verdi,barn.verdi);      // sammenlignefunksjon
             if (cmp < 0) { forelder = barn; barn = barn.venstre; }      // går enten til venstre
             else if (cmp > 0) { forelder = barn; barn = barn.høyre; }   // går eller til høyre
-            else break;    // eller finner den søkte verdien som barn  //helt til venstre og ingen høyre
+            else break;    // verdien er funnet.  //helt til venstre og ingen høyre
         }
         if (barn == null) return false;   // fant ikke verdi
 
@@ -237,7 +237,7 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         //inneholder noen forekomster (inkludert om treet er tomt) skal metoden returnere
         //0.
         int antallFjernet=0;
-        while (!fjern(verdi)) {
+        while (fjern(verdi)) {
             antallFjernet++;
         }
         return antallFjernet;
