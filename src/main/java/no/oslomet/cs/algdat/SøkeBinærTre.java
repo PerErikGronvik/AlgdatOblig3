@@ -244,7 +244,12 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
 
     }
     public void nullstill() {
-        while (fjernAlle(førstePostorden(rot).verdi)!=0);
+        while (rot != null){
+            Node<T> verdiBeholder = førstePostorden(rot);
+            if (verdiBeholder == null) break;
+            fjernAlle(verdiBeholder.verdi);
+        }
+
 
 
         //Lag til slutt metoden public void nullstill(). Den skal gå gjennom treet
