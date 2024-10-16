@@ -188,20 +188,66 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     }
 
     // Oppgave 5
-    public boolean fjern(T verdi) { throw new UnsupportedOperationException();
-    //Lat metoden public boolean fjern(T verdi). Du kan se på koden i kapittel
+    public boolean fjern(T verdi) {
+        if (verdi == null) return false;  // treet har ingen nullverdier
+
+        Node<T> barn = rot, forelder = null;
+
+        while (barn != null)            // leter etter verdi
+        {
+            int cmp = comp.compare(verdi,barn.verdi);      // sammenlignefunksjon
+            if (cmp < 0) { forelder = barn; barn = barn.venstre; }      // går enten til venstre
+            else if (cmp > 0) { forelder = barn; barn = barn.høyre; }   // går eller til høyre
+            else break;    // eller finner den søkte verdien som barn  //helt til venstre og ingen høyre
+        }
+        if (barn == null) return false;   // fant ikke verdi
+
+        if (barn.venstre == null || barn.høyre == null)  // har ikke to barn, enten er den bladnode eller har en node.
+        {
+            Node<T> valgtBarn = barn.venstre != null ? barn.venstre : barn.høyre;  // Velger hvilket barn
+            if (barn == rot) rot = valgtBarn; //barn er første verdien
+            else if (barn == forelder.venstre) forelder.venstre = valgtBarn;
+            else forelder.høyre = valgtBarn;
+        }
+        else  // Noden har to barn
+        {
+            Node<T> forelderNeste = barn, barnNeste = barn.høyre;   // finner neste i inorden
+            while (barnNeste.venstre != null)
+            { //navigerer til venstre
+                forelderNeste = barnNeste;
+                barnNeste = barnNeste.venstre;
+            }
+
+            barn.verdi = barnNeste.verdi;
+
+            if (forelderNeste != barn) forelderNeste.venstre = barnNeste.høyre;
+            else forelderNeste.høyre = barnNeste.høyre;
+        }
+
+        antall--;   // det er nå én node mindre i treet
+        return true;
+
+        //Lag metoden public boolean fjern(T verdi). Du kan se på koden i kapittel
         //5.2.8, men må gjøre endringene som trengs for at forelder-pekeren får rett verdi.
+    }
+
+    public int fjernAlle(T verdi) {
         //Lag så metoden public int fjernAlle(T verdi). Denne skal fjerne alle
         //forekomster av en verdi i treet, og returnere antallet som ble fjernet. Om treet ikke
         //inneholder noen forekomster (inkludert om treet er tomt) skal metoden returnere
         //0.
+        int antallFjernet=0;
+
+        while (!fjern(verdi)) {
+            antallFjernet++;
+        }
+        return antallFjernet;
+
+    }
+    public void nullstill() { throw new UnsupportedOperationException();
         //Lag til slutt metoden public void nullstill(). Den skal gå gjennom treet
         //og passe på at alle nodepekere og nodeverdier i treet blir nullet ut. Det er ikke
         //tilstrekkelig å kun sette rot til null og antall til 0.
         //3
-
-    }
-
-    public int fjernAlle(T verdi) { throw new UnsupportedOperationException(); }
-    public void nullstill() { throw new UnsupportedOperationException(); }
+        }
 }
