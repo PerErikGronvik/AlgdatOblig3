@@ -218,15 +218,9 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
         antall--;   // det er nå én node mindre i treet
         return true;
 
-        //Lag metoden public boolean fjern(T verdi). Du kan se på koden i kapittel
-        //5.2.8, men må gjøre endringene som trengs for at forelder-pekeren får rett verdi.
     }
 
     public int fjernAlle(T verdi) {
-        //Lag så metoden public int fjernAlle(T verdi). Denne skal fjerne alle
-        //forekomster av en verdi i treet, og returnere antallet som ble fjernet. Om treet ikke
-        //inneholder noen forekomster (inkludert om treet er tomt) skal metoden returnere
-        //0.
         int antallFjernet=0;
         while (fjern(verdi)) {
             antallFjernet++;
@@ -241,11 +235,5 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
             fjernAlle(verdiBeholder.verdi);
         }
 
-
-
-        //Lag til slutt metoden public void nullstill(). Den skal gå gjennom treet
-        //og passe på at alle nodepekere og nodeverdier i treet blir nullet ut. Det er ikke
-        //tilstrekkelig å kun sette rot til null og antall til 0.
-        //3
         }
 }

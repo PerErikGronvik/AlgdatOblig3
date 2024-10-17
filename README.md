@@ -8,12 +8,26 @@ Skiftet om variabelnavnene for bedre lesbarhet, slik at koden ble mer selvforkla
 Koden teller antall forekomster av en verdi i et binært søketre. Den traverserer treet ved å sammenligne verdien med hver node. Når en match finnes, sjekker den begge sider for duplikater før den returnerer totalantallet. På denne måten fanger den opp alle forekomster av verdien, uansett plassering i treet.
 
 # Oppgave 3
-Første postorden traverserer mot vanstre rundt treet til, første bladnode. Hvis noden er eneste node, returnerer den noden.
+Første postorden traverserer mot venstre så langt som mulig. 
+den stopper på den første bladnoden. Noden returnerer seg selv om den er den eneste noden.
 
 Neste postorden stopper opp hvis forelder til noden er null, bare rotnoden har forelder null, så da vet den at den har kommet rundt. 
-- Hvis den ikke har noen barn er den en bladnode derfor returnerer den forelder. dersom den ikke finner noe går den opp og til høyre og lister verdien. til den caster mot  nOE SÅNT. husker ikke
+Andre noder returnerer neste.
+- Hvis bladnode returner forelder
+- Hvis den har høyresøsken starter den treversjeringen der.
+- Hvis den ikke har høyresøsken eller er ferdig med deltre går den opp til forelder.
+- 
 # Oppgave 4
+Lager en tempnode som utfører oppgave på og oppdaterer til å peke på neste node i postorden.
 
+Kaster postorden rekursivt mot venstre og mot høyre. utfører oppgaven for hvert kall.
 
 # Oppgave 5
 
+Tok inn koden fra kompendiet. endret noen navn variablene. 
+Oppdaterte hvordan pekerne ble satt til null. oppdaterte igjen når jeg manglet noen. Koden tar for seg sletting på ulike plasser.
+
+Jeg laget en while loop som fjernet alle, fjern(verdi) skal returnere false når det ikke er verdi så det skal fungere fint.
+
+Nullstill
+Her kunne jeg laget rekursivt kall, men valgte her en metode som brukte fjern på rot. Jeg kunne effektivisert også denne funksjonen. Det får jeg se på, på egenhånd.
